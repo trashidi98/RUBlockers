@@ -1,0 +1,38 @@
+pragma solidity ^0.4.24;
+
+
+
+contract Dispute_Rider_Diver{
+    
+    uint256 price;
+    bool satisfied;
+    address rider;
+    address driver;
+    uint recievedfunds;
+    
+    function setSatisfaction(bool _satisfied) public view {
+        satisfied = _satisfied;     //this is set by the community of voters since a rider can potentially
+                                    //lie about the satisfaction of their ride
+                                    //Missing some logic here
+    }
+    
+    function getPrice() public view returns(uint256){ //returns the price of smart contract 
+        return price;                               
+    }
+    
+    function allocateFunds(){//allocates funds to right accounts
+        if (satisfied == false) {    //if not satisfied execute these funds *NEED TO EDIT THIS FUNCTION W/ MAHIR*
+        driver.transfer(price/2);    
+        rider.transfer(price/2);
+        }
+        
+        if (satisfied==true) {      //if satisfied transfer the whole contract funds
+            driver.transfer(price);
+        }
+    }
+    function() payable {                                             //Default function when funds are recieved
+          price = recievedfunds;  
+    } 
+    
+}
+
